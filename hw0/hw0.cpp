@@ -36,7 +36,7 @@ int main() {
 	You can input your joint information and read sensor data C++ style "<<" or ">>". Make sure you only 
 	expect to read or are writing #D.O.F. number of values.
 	*/
-	robot->_q << 0, 0.6, M_PI/3; // Joint 1,2,3 Coordinates (radians, meters, radians)
+	robot->_q << 0, 1.0, -M_PI/2; // Joint 1,2,3 Coordinates (radians, meters, radians)
 	robot->_dq << 0, 0, 0; // Joint 1,2,3 Velocities (radians/sec, meters/sec, radians/sec), not used here
 
 	/* 
@@ -64,7 +64,7 @@ int main() {
 	// ---------------------------------------------------------------------------------------
 	//    -----------------    YOU WILL NEED TO CHANGE THIS ONE  -----------------------------
 	// ---------------------------------------------------------------------------------------
-	Eigen::Vector3d ee_pos_in_link = Eigen::Vector3d(0.0, 0.0, 0.0); 
+	Eigen::Vector3d ee_pos_in_link = Eigen::Vector3d(0.0, 0.0, 1.0); //L4 is 1.0m according to the homework
 	
 	Eigen::Vector3d ee_position = Eigen::Vector3d::Zero(); // 3d vector of zeros to fill with the end effector position
 	Eigen::MatrixXd ee_jacobian(3,dof); // Empty Jacobian Matrix sized to right size
@@ -88,6 +88,38 @@ int main() {
 	setting redis keys for display update if needed and don't forget robot->updateModel()! 
 	We'll have a logger for you later to dump redis values at whatever rate you choose
 	*/
+
+	int N = 100; //no of data points
+	float d_lower = 0.0;
+	float d_upper = 2.0;
+	float delta = (d_upper-d_lower)/N;
+
+
+	for(int i = 0;i<=N;i++)
+	{
+
+		float d_current = d_lower + i*delta;
+		robot->_q << 0, d_current, 0 ; // Joint 1,2,3 Coordinates (radians, meters, radians)
+		robot->_dq << 0, 0, 0; // Joint 1,2,3 Velocities (radians/sec, meters/sec, radians/sec), not used here
+
+		redis_client.setEigenMatrixJSON(JOINT_ANGLES_KEY,robot->_q);
+		redis_client.setEigenMatrixJSON(JOINT_VELOCITIES_KEY, robot->_dq);
+
+		robot->updateModel();
+
+		robot->position(ee_position, ee_link_name, ee_pos_in_link);
+
+		robot->Jv(ee_jacobian,ee_link_name,ee_pos_in_link); // Read jacobian into ee_jacobian
+		robot->gravityVector(g); // Fill in and print gravity vectory
+
+		auto M = robot->_M;
+
+		//cout << M(0,0) << "\t" << M(1,1) << "\t" << M(2,2) << "\t" << endl; // Print Mass Matrix, you can index into this variable (and all 'Eigen' types)!
+		cout << g(0) << "\t" << g(1) << "\t" << g(2) << endl;
+
+
+	}
+
 
     return 0;
 }
