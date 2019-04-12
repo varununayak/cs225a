@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <string>
+#include <unistd.h>
+
 
 using namespace std;
 
@@ -36,8 +38,8 @@ int main() {
 	You can input your joint information and read sensor data C++ style "<<" or ">>". Make sure you only 
 	expect to read or are writing #D.O.F. number of values.
 	*/
-	robot->_q << 0, 1.0, -M_PI/2; // Joint 1,2,3 Coordinates (radians, meters, radians)
-	robot->_dq << 0, 0, 0; // Joint 1,2,3 Velocities (radians/sec, meters/sec, radians/sec), not used here
+	robot->_q << 0, 1.0, M_PI/4, 0; // Joint 1,2,3 Coordinates (radians, meters, radians)
+	robot->_dq << 0, 0, 0, 0; // Joint 1,2,3 Velocities (radians/sec, meters/sec, radians/sec), not used here
 
 	/* 
 	Here we use our redis set method to serialize an 'Eigen' vector into a specific Redis Key
@@ -58,7 +60,7 @@ int main() {
 	cout << endl << endl;
 
 	// operational space
-	std::string ee_link_name = "link2"; // Link of the "Task" or "End Effector"
+	std::string ee_link_name = "link3"; // Link of the "Task" or "End Effector"
 
 	// Position of Task Frame in relation to Link Frame (When using custom E.E. attachment, etc..)
 	// ---------------------------------------------------------------------------------------
@@ -91,16 +93,16 @@ int main() {
 
 	int N = 100; //no of data points
 	float d_lower = 0.0;
-	float d_upper = 2.0;
+	float d_upper = 1.0;
 	float delta = (d_upper-d_lower)/N;
 
-
+	
 	for(int i = 0;i<=N;i++)
 	{
 
 		float d_current = d_lower + i*delta;
-		robot->_q << 0, d_current, 0 ; // Joint 1,2,3 Coordinates (radians, meters, radians)
-		robot->_dq << 0, 0, 0; // Joint 1,2,3 Velocities (radians/sec, meters/sec, radians/sec), not used here
+		robot->_q << 0, 1.0, M_PI/4, d_current; // Joint 1,2,3 Coordinates (radians, meters, radians)
+		robot->_dq << 0, 0, 0, 0; // Joint 1,2,3 Velocities (radians/sec, meters/sec, radians/sec), not used here
 
 		redis_client.setEigenMatrixJSON(JOINT_ANGLES_KEY,robot->_q);
 		redis_client.setEigenMatrixJSON(JOINT_VELOCITIES_KEY, robot->_dq);
@@ -115,11 +117,12 @@ int main() {
 		auto M = robot->_M;
 
 		//cout << M(0,0) << "\t" << M(1,1) << "\t" << M(2,2) << "\t" << endl; // Print Mass Matrix, you can index into this variable (and all 'Eigen' types)!
-		cout << g(0) << "\t" << g(1) << "\t" << g(2) << endl;
+		cout << g(0) << "\t" << g(1) << "\t" << g(2) << "\t" << g(3) << endl;
 
+		usleep(30000);
 
 	}
-
+	
 
     return 0;
 }
