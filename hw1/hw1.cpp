@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <cmath>
 
 #define QUESTION_1   1
 #define QUESTION_2   2
@@ -71,7 +72,25 @@ int main() {
 
 	//to store the trajectory
 	std::ofstream traj_file;
-	traj_file.open("/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw1/joint_trajectory_1.csv");
+	traj_file.open("/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw1/joint_trajectory_6.csv");
+
+	auto m11 = robot->_M(0,0); //for tuning the gains in part 1 and 2 when you do not use the mass matrix in control law
+
+	Eigen::VectorXd g(dof); // Empty Gravity Vector
+	Eigen::VectorXd b(dof); // coriolis and cfugal vector
+
+	//for extra credit
+	Eigen::VectorXd payLoad(dof); //extra payload vector
+	float payload_mass = 2.5; 
+	Eigen::VectorXd payload_force(3);
+	payload_force(0) = 0; payload_force(1) = 0; payload_force(2) = 9.81*payload_mass;
+	std::string ee_link_name = "link7"; // Link of the "Task" or "End Effector"
+	Eigen::MatrixXd ee_jacobian(3,dof); // Empty Jacobian Matrix sized to right size
+	Eigen::Vector3d ee_pos_in_link = Eigen::Vector3d(0.0, 0.0, 0.17); //positon of mass in link
+	Eigen:MatrixXd massCorrection(dof,dof);	// mass correction term
+	Eigen::VectorXd bCorrection(dof);	// coriolis and cfugal payload correction term
+
+
 
 	redis_client.set(CONTROLLER_RUNING_KEY, "1");
 	while (runloop) {
@@ -84,17 +103,28 @@ int main() {
 		robot->_dq = redis_client.getEigenMatrixJSON(JOINT_VELOCITIES_KEY);
 		robot->updateModel();
 
+
 		// **********************
 		// WRITE YOUR CODE AFTER
 		// **********************
-		int controller_number = QUESTION_1;  // change to the controller of the question you want : QUESTION_1, QUESTION_2, QUESTION_3, QUESTION_4, QUESTION_5
+
+		int controller_number = QUESTION_5;  // change to the controller of the question you want : QUESTION_1, QUESTION_2, QUESTION_3, QUESTION_4, QUESTION_5
+
+		robot->gravityVector(g); // Fill in  gravity vectory
+		robot->coriolisForce(b); // Fill in coriolis/cfugal vector
+
+		//for extra credit
+		robot->Jv(ee_jacobian,ee_link_name,ee_pos_in_link); //get jacobian
+		payLoad = ee_jacobian.transpose()*payload_force;	//compute joint torques due to payload
+		massCorrection = payload_mass*ee_jacobian.transpose()*ee_jacobian;	//computing mass correction using standard MM formula
 
 
 		// ---------------------------  question 1 ---------------------------------------
 		if(controller_number == QUESTION_1)
 		{
 			double kp = 400.0;      // chose your p gain
-			double kv = 40.0;      // chose your d gain
+			double kv = 2*kp/(sqrt(kp/m11)) ;      // chose your d gain: kv is approx 52
+			printf(" Kv = %f \n", kv);
 
 			VectorXd q_desired = desired_q;   // change to the desired robot joint angles for the question
 			auto tau = -kp*(robot->_q - desired_q) - kv*robot->_dq; 
@@ -103,35 +133,58 @@ int main() {
 
 		// ---------------------------  question 2 ---------------------------------------
 		if(controller_number == QUESTION_2)
-		{
+		{	
+			double kp = 400.0;      // chose your p gain
+			double kv = 2*kp/(sqrt(kp/m11)) ;      // chose your d gain: kv is approx 52
 
-			command_torques.setZero();
+			VectorXd q_desired = desired_q;   // change to the desired robot joint angles for the question
+			auto tau = -kp*(robot->_q - desired_q) - kv*robot->_dq + g; 
+			command_torques= tau;
 		}
 
 		// ---------------------------  question 3 ---------------------------------------
 		if(controller_number == QUESTION_3)
 		{
 
-			command_torques.setZero();
+			double kp = 400.0;      // chose your p gain
+			double kv = 40.0;      // chose your d gain
+
+			VectorXd q_desired = desired_q;   // change to the desired robot joint angles for the question
+			auto tau = robot->_M*(-kp*(robot->_q - desired_q) - kv*robot->_dq) + g; 
+			command_torques= tau;
 		}
 
 		// ---------------------------  question 4 ---------------------------------------
 		if(controller_number == QUESTION_4)
 		{
 
-			command_torques.setZero();
+			double kp = 400.0;      // chose your p gain
+			double kv = 40.0;      // chose your d gain
+
+			VectorXd q_desired = desired_q;   // change to the desired robot joint angles for the question
+			auto tau = robot->_M*(-kp*(robot->_q - desired_q) - kv*robot->_dq) + g + b; 
+			command_torques= tau;
 		}
 
 		// ---------------------------  question 5 ---------------------------------------
+		// implementing the extra credit controller here
 		if(controller_number == QUESTION_5)
 		{
 
-			command_torques.setZero();
+			double kp = 400.0;      // chose your p gain
+			double kv = 40.0;      // chose your d gain
+
+			//cout << "Payload: "<< payLoad.transpose() << endl;
+
+			VectorXd q_desired = desired_q;   // change to the desired robot joint angles for the question
+			auto tau = (robot->_M + massCorrection )*(-kp*(robot->_q - desired_q) - kv*robot->_dq) + g + b + payLoad; 
+			command_torques= tau;
 		}
 		
-		traj_file << robot->_q(0) << "," << robot->_q(2) << "," << robot->_q(3) << "\n"; 
+		traj_file << robot->_q(0) << "," << robot->_q(2) << "," << robot->_q(3)  <<"\n"; 
 
-		cout << robot->_q(0) << "," << robot->_q(2) << "," << robot->_q(3) << endl; 
+		//cout << robot->_q(0) << "," << robot->_q(2) << "," << robot->_q(3) <<  endl; 
+		cout<< g.transpose() <<endl;
 
 		// **********************
 		// WRITE YOUR CODE BEFORE
@@ -141,6 +194,8 @@ int main() {
 		redis_client.setEigenMatrixJSON(JOINT_TORQUES_COMMANDED_KEY, command_torques);
 
 		controller_counter++;
+
+		if(controller_counter>2000) break;
 
 	}
 

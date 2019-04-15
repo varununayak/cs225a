@@ -10,7 +10,7 @@ z = []
 
 dt = 0.001	#loop frequency
 
-with open('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw1/joint_trajectory_1.csv','r') as csvfile:
+with open('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw1/joint_trajectory_6.csv','r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
     for row in plots:
         x.append(float(row[0]))
@@ -23,7 +23,9 @@ plt.plot(t,y, label='Joint 3')
 plt.plot(t,z, label='Joint 4')
 plt.xlabel('Time [s]')
 plt.ylabel('Angle [rad]')
-plt.title('Joint Trajectory for Q1')
+plt.title('Joint Trajectory for Q6')
 plt.legend()
-plt.savefig('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw1/q1_plot.png')
+plt.grid()
+
+plt.savefig('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw1/q6_plot.png')
 plt.show()
