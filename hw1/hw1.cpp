@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 
 #define QUESTION_1   1
 #define QUESTION_2   2
@@ -49,6 +50,13 @@ int main() {
 	robot->_q = redis_client.getEigenMatrixJSON(JOINT_ANGLES_KEY);
 	VectorXd initial_q = robot->_q;
 	robot->updateModel();
+	//printf(" Size %s \n",to_string(initial_q.size()).c_str()); 
+
+	VectorXd desired_q;
+	desired_q.resize(7);
+	desired_q << 90,-45,0,-125,0,80,0;
+	desired_q = desired_q*3.14159/180;
+	//printf(" desired q %s \n", to_string(desired_q(5)).c_str()); 
 
 	// prepare controller
 	int dof = robot->dof();
@@ -60,6 +68,10 @@ int main() {
 	timer.setLoopFrequency(1000); 
 	double start_time = timer.elapsedTime(); //secs
 	bool fTimerDidSleep = true;
+
+	//to store the trajectory
+	std::ofstream traj_file;
+	traj_file.open("/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw1/joint_trajectory_1.csv");
 
 	redis_client.set(CONTROLLER_RUNING_KEY, "1");
 	while (runloop) {
@@ -81,12 +93,12 @@ int main() {
 		// ---------------------------  question 1 ---------------------------------------
 		if(controller_number == QUESTION_1)
 		{
-			double kp = 0.0;      // chose your p gain
-			double kv = 0.0;      // chose your d gain
+			double kp = 400.0;      // chose your p gain
+			double kv = 40.0;      // chose your d gain
 
-			VectorXd q_desired = initial_q;   // change to the desired robot joint angles for the question
-
-			command_torques.setZero();  // change to the control torques you compute
+			VectorXd q_desired = desired_q;   // change to the desired robot joint angles for the question
+			auto tau = -kp*(robot->_q - desired_q) - kv*robot->_dq; 
+			command_torques = tau ;  // change to the control torques you compute
 		}
 
 		// ---------------------------  question 2 ---------------------------------------
@@ -116,6 +128,10 @@ int main() {
 
 			command_torques.setZero();
 		}
+		
+		traj_file << robot->_q(0) << "," << robot->_q(2) << "," << robot->_q(3) << "\n"; 
+
+		cout << robot->_q(0) << "," << robot->_q(2) << "," << robot->_q(3) << endl; 
 
 		// **********************
 		// WRITE YOUR CODE BEFORE
@@ -127,6 +143,9 @@ int main() {
 		controller_counter++;
 
 	}
+
+	traj_file.close();
+	printf("Reached Here \n");
 
 	command_torques.setZero();
 	redis_client.setEigenMatrixJSON(JOINT_TORQUES_COMMANDED_KEY, command_torques);
