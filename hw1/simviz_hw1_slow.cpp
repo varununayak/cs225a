@@ -227,7 +227,7 @@ void simulation(Sai2Model::Sai2Model* robot, Simulation::Sai2Simulation* sim) {
 	// create a timer
 	LoopTimer timer;
 	timer.initializeTimer();
-	timer.setLoopFrequency(1000); 
+	timer.setLoopFrequency(200); 
 	double last_time = timer.elapsedTime(); //secs
 	bool fTimerDidSleep = true;
 
