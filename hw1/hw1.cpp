@@ -51,7 +51,6 @@ int main() {
 	robot->_q = redis_client.getEigenMatrixJSON(JOINT_ANGLES_KEY);
 	VectorXd initial_q = robot->_q;
 	robot->updateModel();
-	//printf(" Size %s \n",to_string(initial_q.size()).c_str()); 
 
 	VectorXd desired_q;
 	desired_q.resize(7);
@@ -84,6 +83,7 @@ int main() {
 	float payload_mass = 2.5; 
 	Eigen::VectorXd payload_force(3);
 	payload_force(0) = 0; payload_force(1) = 0; payload_force(2) = 9.81*payload_mass;
+
 	std::string ee_link_name = "link7"; // Link of the "Task" or "End Effector"
 	Eigen::MatrixXd ee_jacobian(3,dof); // Empty Jacobian Matrix sized to right size
 	Eigen::Vector3d ee_pos_in_link = Eigen::Vector3d(0.0, 0.0, 0.17); //positon of mass in link
@@ -124,7 +124,6 @@ int main() {
 		{
 			double kp = 400.0;      // chose your p gain
 			double kv = 2*kp/(sqrt(kp/m11)) ;      // chose your d gain: kv is approx 52
-			printf(" Kv = %f \n", kv);
 
 			VectorXd q_desired = desired_q;   // change to the desired robot joint angles for the question
 			auto tau = -kp*(robot->_q - desired_q) - kv*robot->_dq; 
@@ -174,17 +173,16 @@ int main() {
 			double kp = 400.0;      // chose your p gain
 			double kv = 40.0;      // chose your d gain
 
-			//cout << "Payload: "<< payLoad.transpose() << endl;
-
 			VectorXd q_desired = desired_q;   // change to the desired robot joint angles for the question
 			auto tau = (robot->_M + massCorrection )*(-kp*(robot->_q - desired_q) - kv*robot->_dq) + g + b + payLoad; 
 			command_torques= tau;
 		}
 		
+		//write the joint values to file
 		traj_file << robot->_q(0) << "," << robot->_q(2) << "," << robot->_q(3)  <<"\n"; 
 
 		//cout << robot->_q(0) << "," << robot->_q(2) << "," << robot->_q(3) <<  endl; 
-		cout<< g.transpose() <<endl;
+		//cout<< g.transpose() <<endl;
 
 		// **********************
 		// WRITE YOUR CODE BEFORE
@@ -195,12 +193,11 @@ int main() {
 
 		controller_counter++;
 
-		if(controller_counter>2000) break;
+		if(controller_counter>2000) break;	//simulate for 2 seconds only
 
 	}
 
-	traj_file.close();
-	printf("Reached Here \n");
+	traj_file.close();	//closing the file to which we write the joint values
 
 	command_torques.setZero();
 	redis_client.setEigenMatrixJSON(JOINT_TORQUES_COMMANDED_KEY, command_torques);
