@@ -11,6 +11,12 @@
 /home/varun/sai2/apps/cs225a/build/hw0/CMakeFiles/rebuild_cache.dir
 /home/varun/sai2/apps/cs225a/build/hw0/CMakeFiles/hw0.dir
 /home/varun/sai2/apps/cs225a/build/hw1/CMakeFiles/edit_cache.dir
-/home/varun/sai2/apps/cs225a/build/hw1/CMakeFiles/rebuild_cache.dir
-/home/varun/sai2/apps/cs225a/build/hw1/CMakeFiles/simviz_hw1.dir
 /home/varun/sai2/apps/cs225a/build/hw1/CMakeFiles/hw1.dir
+/home/varun/sai2/apps/cs225a/build/hw1/CMakeFiles/simviz_hw1.dir
+/home/varun/sai2/apps/cs225a/build/hw1/CMakeFiles/simviz_hw1_slow.dir
+/home/varun/sai2/apps/cs225a/build/hw1/CMakeFiles/rebuild_cache.dir
+/home/varun/sai2/apps/cs225a/build/hw2/CMakeFiles/edit_cache.dir
+/home/varun/sai2/apps/cs225a/build/hw2/CMakeFiles/hw2.dir
+/home/varun/sai2/apps/cs225a/build/hw2/CMakeFiles/rebuild_cache.dir
+/home/varun/sai2/apps/cs225a/build/hw2/CMakeFiles/simviz_hw2.dir
+/home/varun/sai2/apps/cs225a/build/hw2/CMakeFiles/simviz_hw2_slow.dir

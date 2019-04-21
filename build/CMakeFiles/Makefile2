@@ -90,7 +90,7 @@ lecture2-demo/preinstall:
 lecture2-demo/CMakeFiles/simviz.dir/all:
 	$(MAKE) -f lecture2-demo/CMakeFiles/simviz.dir/build.make lecture2-demo/CMakeFiles/simviz.dir/depend
 	$(MAKE) -f lecture2-demo/CMakeFiles/simviz.dir/build.make lecture2-demo/CMakeFiles/simviz.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/varun/sai2/apps/cs225a/build/CMakeFiles --progress-num=11,12 "Built target simviz"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/varun/sai2/apps/cs225a/build/CMakeFiles --progress-num=13,14 "Built target simviz"
 .PHONY : lecture2-demo/CMakeFiles/simviz.dir/all
 
 # Include target in all.
@@ -127,7 +127,7 @@ clean: lecture2-demo/CMakeFiles/simviz.dir/clean
 lecture2-demo/CMakeFiles/visualization.dir/all:
 	$(MAKE) -f lecture2-demo/CMakeFiles/visualization.dir/build.make lecture2-demo/CMakeFiles/visualization.dir/depend
 	$(MAKE) -f lecture2-demo/CMakeFiles/visualization.dir/build.make lecture2-demo/CMakeFiles/visualization.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/varun/sai2/apps/cs225a/build/CMakeFiles --progress-num=15,16 "Built target visualization"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/varun/sai2/apps/cs225a/build/CMakeFiles --progress-num=23,24 "Built target visualization"
 .PHONY : lecture2-demo/CMakeFiles/visualization.dir/all
 
 # Include target in all.
@@ -164,7 +164,7 @@ clean: lecture2-demo/CMakeFiles/visualization.dir/clean
 lecture2-demo/CMakeFiles/simulation.dir/all:
 	$(MAKE) -f lecture2-demo/CMakeFiles/simulation.dir/build.make lecture2-demo/CMakeFiles/simulation.dir/depend
 	$(MAKE) -f lecture2-demo/CMakeFiles/simulation.dir/build.make lecture2-demo/CMakeFiles/simulation.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/varun/sai2/apps/cs225a/build/CMakeFiles --progress-num=9,10 "Built target simulation"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/varun/sai2/apps/cs225a/build/CMakeFiles --progress-num=11,12 "Built target simulation"
 .PHONY : lecture2-demo/CMakeFiles/simulation.dir/all
 
 # Include target in all.
@@ -329,14 +329,16 @@ clean: hw0/CMakeFiles/hw0.dir/clean
 # Directory level rules for directory hw1
 
 # Convenience name for "all" pass in the directory.
-hw1/all: hw1/CMakeFiles/simviz_hw1.dir/all
 hw1/all: hw1/CMakeFiles/hw1.dir/all
+hw1/all: hw1/CMakeFiles/simviz_hw1.dir/all
+hw1/all: hw1/CMakeFiles/simviz_hw1_slow.dir/all
 
 .PHONY : hw1/all
 
 # Convenience name for "clean" pass in the directory.
-hw1/clean: hw1/CMakeFiles/simviz_hw1.dir/clean
 hw1/clean: hw1/CMakeFiles/hw1.dir/clean
+hw1/clean: hw1/CMakeFiles/simviz_hw1.dir/clean
+hw1/clean: hw1/CMakeFiles/simviz_hw1_slow.dir/clean
 
 .PHONY : hw1/clean
 
@@ -344,43 +346,6 @@ hw1/clean: hw1/CMakeFiles/hw1.dir/clean
 hw1/preinstall:
 
 .PHONY : hw1/preinstall
-
-#=============================================================================
-# Target rules for target hw1/CMakeFiles/simviz_hw1.dir
-
-# All Build rule for target.
-hw1/CMakeFiles/simviz_hw1.dir/all:
-	$(MAKE) -f hw1/CMakeFiles/simviz_hw1.dir/build.make hw1/CMakeFiles/simviz_hw1.dir/depend
-	$(MAKE) -f hw1/CMakeFiles/simviz_hw1.dir/build.make hw1/CMakeFiles/simviz_hw1.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/varun/sai2/apps/cs225a/build/CMakeFiles --progress-num=13,14 "Built target simviz_hw1"
-.PHONY : hw1/CMakeFiles/simviz_hw1.dir/all
-
-# Include target in all.
-all: hw1/CMakeFiles/simviz_hw1.dir/all
-
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-hw1/CMakeFiles/simviz_hw1.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/varun/sai2/apps/cs225a/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 hw1/CMakeFiles/simviz_hw1.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/varun/sai2/apps/cs225a/build/CMakeFiles 0
-.PHONY : hw1/CMakeFiles/simviz_hw1.dir/rule
-
-# Convenience name for target.
-simviz_hw1: hw1/CMakeFiles/simviz_hw1.dir/rule
-
-.PHONY : simviz_hw1
-
-# clean rule for target.
-hw1/CMakeFiles/simviz_hw1.dir/clean:
-	$(MAKE) -f hw1/CMakeFiles/simviz_hw1.dir/build.make hw1/CMakeFiles/simviz_hw1.dir/clean
-.PHONY : hw1/CMakeFiles/simviz_hw1.dir/clean
-
-# clean rule for target.
-clean: hw1/CMakeFiles/simviz_hw1.dir/clean
-
-.PHONY : clean
 
 #=============================================================================
 # Target rules for target hw1/CMakeFiles/hw1.dir
@@ -416,6 +381,213 @@ hw1/CMakeFiles/hw1.dir/clean:
 
 # clean rule for target.
 clean: hw1/CMakeFiles/hw1.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target hw1/CMakeFiles/simviz_hw1.dir
+
+# All Build rule for target.
+hw1/CMakeFiles/simviz_hw1.dir/all:
+	$(MAKE) -f hw1/CMakeFiles/simviz_hw1.dir/build.make hw1/CMakeFiles/simviz_hw1.dir/depend
+	$(MAKE) -f hw1/CMakeFiles/simviz_hw1.dir/build.make hw1/CMakeFiles/simviz_hw1.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/varun/sai2/apps/cs225a/build/CMakeFiles --progress-num=15,16 "Built target simviz_hw1"
+.PHONY : hw1/CMakeFiles/simviz_hw1.dir/all
+
+# Include target in all.
+all: hw1/CMakeFiles/simviz_hw1.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+hw1/CMakeFiles/simviz_hw1.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/varun/sai2/apps/cs225a/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 hw1/CMakeFiles/simviz_hw1.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/varun/sai2/apps/cs225a/build/CMakeFiles 0
+.PHONY : hw1/CMakeFiles/simviz_hw1.dir/rule
+
+# Convenience name for target.
+simviz_hw1: hw1/CMakeFiles/simviz_hw1.dir/rule
+
+.PHONY : simviz_hw1
+
+# clean rule for target.
+hw1/CMakeFiles/simviz_hw1.dir/clean:
+	$(MAKE) -f hw1/CMakeFiles/simviz_hw1.dir/build.make hw1/CMakeFiles/simviz_hw1.dir/clean
+.PHONY : hw1/CMakeFiles/simviz_hw1.dir/clean
+
+# clean rule for target.
+clean: hw1/CMakeFiles/simviz_hw1.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target hw1/CMakeFiles/simviz_hw1_slow.dir
+
+# All Build rule for target.
+hw1/CMakeFiles/simviz_hw1_slow.dir/all:
+	$(MAKE) -f hw1/CMakeFiles/simviz_hw1_slow.dir/build.make hw1/CMakeFiles/simviz_hw1_slow.dir/depend
+	$(MAKE) -f hw1/CMakeFiles/simviz_hw1_slow.dir/build.make hw1/CMakeFiles/simviz_hw1_slow.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/varun/sai2/apps/cs225a/build/CMakeFiles --progress-num=17,18 "Built target simviz_hw1_slow"
+.PHONY : hw1/CMakeFiles/simviz_hw1_slow.dir/all
+
+# Include target in all.
+all: hw1/CMakeFiles/simviz_hw1_slow.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+hw1/CMakeFiles/simviz_hw1_slow.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/varun/sai2/apps/cs225a/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 hw1/CMakeFiles/simviz_hw1_slow.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/varun/sai2/apps/cs225a/build/CMakeFiles 0
+.PHONY : hw1/CMakeFiles/simviz_hw1_slow.dir/rule
+
+# Convenience name for target.
+simviz_hw1_slow: hw1/CMakeFiles/simviz_hw1_slow.dir/rule
+
+.PHONY : simviz_hw1_slow
+
+# clean rule for target.
+hw1/CMakeFiles/simviz_hw1_slow.dir/clean:
+	$(MAKE) -f hw1/CMakeFiles/simviz_hw1_slow.dir/build.make hw1/CMakeFiles/simviz_hw1_slow.dir/clean
+.PHONY : hw1/CMakeFiles/simviz_hw1_slow.dir/clean
+
+# clean rule for target.
+clean: hw1/CMakeFiles/simviz_hw1_slow.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory hw2
+
+# Convenience name for "all" pass in the directory.
+hw2/all: hw2/CMakeFiles/hw2.dir/all
+hw2/all: hw2/CMakeFiles/simviz_hw2.dir/all
+hw2/all: hw2/CMakeFiles/simviz_hw2_slow.dir/all
+
+.PHONY : hw2/all
+
+# Convenience name for "clean" pass in the directory.
+hw2/clean: hw2/CMakeFiles/hw2.dir/clean
+hw2/clean: hw2/CMakeFiles/simviz_hw2.dir/clean
+hw2/clean: hw2/CMakeFiles/simviz_hw2_slow.dir/clean
+
+.PHONY : hw2/clean
+
+# Convenience name for "preinstall" pass in the directory.
+hw2/preinstall:
+
+.PHONY : hw2/preinstall
+
+#=============================================================================
+# Target rules for target hw2/CMakeFiles/hw2.dir
+
+# All Build rule for target.
+hw2/CMakeFiles/hw2.dir/all:
+	$(MAKE) -f hw2/CMakeFiles/hw2.dir/build.make hw2/CMakeFiles/hw2.dir/depend
+	$(MAKE) -f hw2/CMakeFiles/hw2.dir/build.make hw2/CMakeFiles/hw2.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/varun/sai2/apps/cs225a/build/CMakeFiles --progress-num=9,10 "Built target hw2"
+.PHONY : hw2/CMakeFiles/hw2.dir/all
+
+# Include target in all.
+all: hw2/CMakeFiles/hw2.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+hw2/CMakeFiles/hw2.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/varun/sai2/apps/cs225a/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 hw2/CMakeFiles/hw2.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/varun/sai2/apps/cs225a/build/CMakeFiles 0
+.PHONY : hw2/CMakeFiles/hw2.dir/rule
+
+# Convenience name for target.
+hw2: hw2/CMakeFiles/hw2.dir/rule
+
+.PHONY : hw2
+
+# clean rule for target.
+hw2/CMakeFiles/hw2.dir/clean:
+	$(MAKE) -f hw2/CMakeFiles/hw2.dir/build.make hw2/CMakeFiles/hw2.dir/clean
+.PHONY : hw2/CMakeFiles/hw2.dir/clean
+
+# clean rule for target.
+clean: hw2/CMakeFiles/hw2.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target hw2/CMakeFiles/simviz_hw2.dir
+
+# All Build rule for target.
+hw2/CMakeFiles/simviz_hw2.dir/all:
+	$(MAKE) -f hw2/CMakeFiles/simviz_hw2.dir/build.make hw2/CMakeFiles/simviz_hw2.dir/depend
+	$(MAKE) -f hw2/CMakeFiles/simviz_hw2.dir/build.make hw2/CMakeFiles/simviz_hw2.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/varun/sai2/apps/cs225a/build/CMakeFiles --progress-num=19,20 "Built target simviz_hw2"
+.PHONY : hw2/CMakeFiles/simviz_hw2.dir/all
+
+# Include target in all.
+all: hw2/CMakeFiles/simviz_hw2.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+hw2/CMakeFiles/simviz_hw2.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/varun/sai2/apps/cs225a/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 hw2/CMakeFiles/simviz_hw2.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/varun/sai2/apps/cs225a/build/CMakeFiles 0
+.PHONY : hw2/CMakeFiles/simviz_hw2.dir/rule
+
+# Convenience name for target.
+simviz_hw2: hw2/CMakeFiles/simviz_hw2.dir/rule
+
+.PHONY : simviz_hw2
+
+# clean rule for target.
+hw2/CMakeFiles/simviz_hw2.dir/clean:
+	$(MAKE) -f hw2/CMakeFiles/simviz_hw2.dir/build.make hw2/CMakeFiles/simviz_hw2.dir/clean
+.PHONY : hw2/CMakeFiles/simviz_hw2.dir/clean
+
+# clean rule for target.
+clean: hw2/CMakeFiles/simviz_hw2.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target hw2/CMakeFiles/simviz_hw2_slow.dir
+
+# All Build rule for target.
+hw2/CMakeFiles/simviz_hw2_slow.dir/all:
+	$(MAKE) -f hw2/CMakeFiles/simviz_hw2_slow.dir/build.make hw2/CMakeFiles/simviz_hw2_slow.dir/depend
+	$(MAKE) -f hw2/CMakeFiles/simviz_hw2_slow.dir/build.make hw2/CMakeFiles/simviz_hw2_slow.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/varun/sai2/apps/cs225a/build/CMakeFiles --progress-num=21,22 "Built target simviz_hw2_slow"
+.PHONY : hw2/CMakeFiles/simviz_hw2_slow.dir/all
+
+# Include target in all.
+all: hw2/CMakeFiles/simviz_hw2_slow.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+hw2/CMakeFiles/simviz_hw2_slow.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/varun/sai2/apps/cs225a/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 hw2/CMakeFiles/simviz_hw2_slow.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/varun/sai2/apps/cs225a/build/CMakeFiles 0
+.PHONY : hw2/CMakeFiles/simviz_hw2_slow.dir/rule
+
+# Convenience name for target.
+simviz_hw2_slow: hw2/CMakeFiles/simviz_hw2_slow.dir/rule
+
+.PHONY : simviz_hw2_slow
+
+# clean rule for target.
+hw2/CMakeFiles/simviz_hw2_slow.dir/clean:
+	$(MAKE) -f hw2/CMakeFiles/simviz_hw2_slow.dir/build.make hw2/CMakeFiles/simviz_hw2_slow.dir/clean
+.PHONY : hw2/CMakeFiles/simviz_hw2_slow.dir/clean
+
+# clean rule for target.
+clean: hw2/CMakeFiles/simviz_hw2_slow.dir/clean
 
 .PHONY : clean
 

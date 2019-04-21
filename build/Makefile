@@ -189,6 +189,19 @@ hw0/fast:
 .PHONY : hw0/fast
 
 #=============================================================================
+# Target rules for targets named hw1
+
+# Build rule for target.
+hw1: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hw1
+.PHONY : hw1
+
+# fast build rule for target.
+hw1/fast:
+	$(MAKE) -f hw1/CMakeFiles/hw1.dir/build.make hw1/CMakeFiles/hw1.dir/build
+.PHONY : hw1/fast
+
+#=============================================================================
 # Target rules for targets named simviz_hw1
 
 # Build rule for target.
@@ -202,17 +215,56 @@ simviz_hw1/fast:
 .PHONY : simviz_hw1/fast
 
 #=============================================================================
-# Target rules for targets named hw1
+# Target rules for targets named simviz_hw1_slow
 
 # Build rule for target.
-hw1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 hw1
-.PHONY : hw1
+simviz_hw1_slow: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 simviz_hw1_slow
+.PHONY : simviz_hw1_slow
 
 # fast build rule for target.
-hw1/fast:
-	$(MAKE) -f hw1/CMakeFiles/hw1.dir/build.make hw1/CMakeFiles/hw1.dir/build
-.PHONY : hw1/fast
+simviz_hw1_slow/fast:
+	$(MAKE) -f hw1/CMakeFiles/simviz_hw1_slow.dir/build.make hw1/CMakeFiles/simviz_hw1_slow.dir/build
+.PHONY : simviz_hw1_slow/fast
+
+#=============================================================================
+# Target rules for targets named hw2
+
+# Build rule for target.
+hw2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hw2
+.PHONY : hw2
+
+# fast build rule for target.
+hw2/fast:
+	$(MAKE) -f hw2/CMakeFiles/hw2.dir/build.make hw2/CMakeFiles/hw2.dir/build
+.PHONY : hw2/fast
+
+#=============================================================================
+# Target rules for targets named simviz_hw2
+
+# Build rule for target.
+simviz_hw2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 simviz_hw2
+.PHONY : simviz_hw2
+
+# fast build rule for target.
+simviz_hw2/fast:
+	$(MAKE) -f hw2/CMakeFiles/simviz_hw2.dir/build.make hw2/CMakeFiles/simviz_hw2.dir/build
+.PHONY : simviz_hw2/fast
+
+#=============================================================================
+# Target rules for targets named simviz_hw2_slow
+
+# Build rule for target.
+simviz_hw2_slow: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 simviz_hw2_slow
+.PHONY : simviz_hw2_slow
+
+# fast build rule for target.
+simviz_hw2_slow/fast:
+	$(MAKE) -f hw2/CMakeFiles/simviz_hw2_slow.dir/build.make hw2/CMakeFiles/simviz_hw2_slow.dir/build
+.PHONY : simviz_hw2_slow/fast
 
 # Help Target
 help:
@@ -228,8 +280,12 @@ help:
 	@echo "... controller"
 	@echo "... hw0_viz"
 	@echo "... hw0"
-	@echo "... simviz_hw1"
 	@echo "... hw1"
+	@echo "... simviz_hw1"
+	@echo "... simviz_hw1_slow"
+	@echo "... hw2"
+	@echo "... simviz_hw2"
+	@echo "... simviz_hw2_slow"
 .PHONY : help
 
 

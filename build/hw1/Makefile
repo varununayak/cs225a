@@ -111,6 +111,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+hw1/CMakeFiles/hw1.dir/rule:
+	cd /home/varun/sai2/apps/cs225a/build && $(MAKE) -f CMakeFiles/Makefile2 hw1/CMakeFiles/hw1.dir/rule
+.PHONY : hw1/CMakeFiles/hw1.dir/rule
+
+# Convenience name for target.
+hw1: hw1/CMakeFiles/hw1.dir/rule
+
+.PHONY : hw1
+
+# fast build rule for target.
+hw1/fast:
+	cd /home/varun/sai2/apps/cs225a/build && $(MAKE) -f hw1/CMakeFiles/hw1.dir/build.make hw1/CMakeFiles/hw1.dir/build
+.PHONY : hw1/fast
+
+# Convenience name for target.
 hw1/CMakeFiles/simviz_hw1.dir/rule:
 	cd /home/varun/sai2/apps/cs225a/build && $(MAKE) -f CMakeFiles/Makefile2 hw1/CMakeFiles/simviz_hw1.dir/rule
 .PHONY : hw1/CMakeFiles/simviz_hw1.dir/rule
@@ -126,19 +141,19 @@ simviz_hw1/fast:
 .PHONY : simviz_hw1/fast
 
 # Convenience name for target.
-hw1/CMakeFiles/hw1.dir/rule:
-	cd /home/varun/sai2/apps/cs225a/build && $(MAKE) -f CMakeFiles/Makefile2 hw1/CMakeFiles/hw1.dir/rule
-.PHONY : hw1/CMakeFiles/hw1.dir/rule
+hw1/CMakeFiles/simviz_hw1_slow.dir/rule:
+	cd /home/varun/sai2/apps/cs225a/build && $(MAKE) -f CMakeFiles/Makefile2 hw1/CMakeFiles/simviz_hw1_slow.dir/rule
+.PHONY : hw1/CMakeFiles/simviz_hw1_slow.dir/rule
 
 # Convenience name for target.
-hw1: hw1/CMakeFiles/hw1.dir/rule
+simviz_hw1_slow: hw1/CMakeFiles/simviz_hw1_slow.dir/rule
 
-.PHONY : hw1
+.PHONY : simviz_hw1_slow
 
 # fast build rule for target.
-hw1/fast:
-	cd /home/varun/sai2/apps/cs225a/build && $(MAKE) -f hw1/CMakeFiles/hw1.dir/build.make hw1/CMakeFiles/hw1.dir/build
-.PHONY : hw1/fast
+simviz_hw1_slow/fast:
+	cd /home/varun/sai2/apps/cs225a/build && $(MAKE) -f hw1/CMakeFiles/simviz_hw1_slow.dir/build.make hw1/CMakeFiles/simviz_hw1_slow.dir/build
+.PHONY : simviz_hw1_slow/fast
 
 hw1.o: hw1.cpp.o
 
@@ -194,6 +209,33 @@ simviz_hw1.cpp.s:
 	cd /home/varun/sai2/apps/cs225a/build && $(MAKE) -f hw1/CMakeFiles/simviz_hw1.dir/build.make hw1/CMakeFiles/simviz_hw1.dir/simviz_hw1.cpp.s
 .PHONY : simviz_hw1.cpp.s
 
+simviz_hw1_slow.o: simviz_hw1_slow.cpp.o
+
+.PHONY : simviz_hw1_slow.o
+
+# target to build an object file
+simviz_hw1_slow.cpp.o:
+	cd /home/varun/sai2/apps/cs225a/build && $(MAKE) -f hw1/CMakeFiles/simviz_hw1_slow.dir/build.make hw1/CMakeFiles/simviz_hw1_slow.dir/simviz_hw1_slow.cpp.o
+.PHONY : simviz_hw1_slow.cpp.o
+
+simviz_hw1_slow.i: simviz_hw1_slow.cpp.i
+
+.PHONY : simviz_hw1_slow.i
+
+# target to preprocess a source file
+simviz_hw1_slow.cpp.i:
+	cd /home/varun/sai2/apps/cs225a/build && $(MAKE) -f hw1/CMakeFiles/simviz_hw1_slow.dir/build.make hw1/CMakeFiles/simviz_hw1_slow.dir/simviz_hw1_slow.cpp.i
+.PHONY : simviz_hw1_slow.cpp.i
+
+simviz_hw1_slow.s: simviz_hw1_slow.cpp.s
+
+.PHONY : simviz_hw1_slow.s
+
+# target to generate assembly for a file
+simviz_hw1_slow.cpp.s:
+	cd /home/varun/sai2/apps/cs225a/build && $(MAKE) -f hw1/CMakeFiles/simviz_hw1_slow.dir/build.make hw1/CMakeFiles/simviz_hw1_slow.dir/simviz_hw1_slow.cpp.s
+.PHONY : simviz_hw1_slow.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -201,15 +243,19 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... rebuild_cache"
-	@echo "... simviz_hw1"
 	@echo "... hw1"
+	@echo "... simviz_hw1"
+	@echo "... simviz_hw1_slow"
+	@echo "... rebuild_cache"
 	@echo "... hw1.o"
 	@echo "... hw1.i"
 	@echo "... hw1.s"
 	@echo "... simviz_hw1.o"
 	@echo "... simviz_hw1.i"
 	@echo "... simviz_hw1.s"
+	@echo "... simviz_hw1_slow.o"
+	@echo "... simviz_hw1_slow.i"
+	@echo "... simviz_hw1_slow.s"
 .PHONY : help
 
 
