@@ -110,7 +110,7 @@ int main() {
 
 	//open file to store csv
 	std::ofstream traj_file;
-	traj_file.open("/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw2/data4i.csv");
+	traj_file.open("/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw2/data4iv.csv");
 
 	while (runloop) {
 		// wait for next scheduled loop
@@ -211,14 +211,18 @@ int main() {
 			Kv(6,6) = 50; // tune this to a good value
 			Kv = 0.36*Kv; //hand tuning
 
+			//for part 4iii
+			MatrixXd Kp(7,7); Kp.setZero();
+			Kp(0,0) = 400; Kp(1,1) = 400; Kp(2,2) = 400; Kp(3,3) = 400; Kp(4,4) = 400; Kp(5,5) = 400; Kp(6,6) = 50; 
+
 			VectorXd p =  J_bar.transpose()*g;
 
-			//cout << p.transpose()  << endl;
-			
+			//Lambda = MatrixXd::Identity(3,3); //for part 4ii
+
 			command_torques = Jv.transpose()*(Lambda*(kp*(x_desired_traj-x) - kv*(xdot - xdot_traj) ) + p); 
-			command_torques += -N.transpose()*robot->_M*(Kv*robot->_dq);
 			
-			//command_torques.setZero();
+			command_torques += -N.transpose()*( robot->_M*(  Kv*robot->_dq + Kp*robot->_q ) + b + g ); //add Kp term and b for part 4iii
+			
 		}
 
 		traj_file << x(0) << "," << x(1) << "," << x(2) << "," 
