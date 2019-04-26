@@ -24,7 +24,7 @@ m = []
 
 dt = 0.001	#loop frequency
 
-with open('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw2/data4iv.csv','r') as csvfile:
+with open('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw2/data_test.csv','r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
     for row in plots:
         a.append(float(row[0]))
@@ -62,7 +62,7 @@ plt.title('Task Space Trajectory')
 plt.legend()
 plt.grid()
 
-plt.savefig('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw2/plot4iv_task.png')
+plt.savefig('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw2/plot_test_task.png')
 
 plt.figure(1)
 plt.plot(t,d, label='Joint 1')
@@ -80,7 +80,7 @@ plt.title('Joint Space Trajectory')
 plt.legend()
 plt.grid()
 
-plt.savefig('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw2/plot4iv_joint.png')
+plt.savefig('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw2/plot_test_joint.png')
 
 
 
