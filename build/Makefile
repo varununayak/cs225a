@@ -189,6 +189,32 @@ hw0/fast:
 .PHONY : hw0/fast
 
 #=============================================================================
+# Target rules for targets named hw0_sol_viz
+
+# Build rule for target.
+hw0_sol_viz: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hw0_sol_viz
+.PHONY : hw0_sol_viz
+
+# fast build rule for target.
+hw0_sol_viz/fast:
+	$(MAKE) -f hw0_solution/CMakeFiles/hw0_sol_viz.dir/build.make hw0_solution/CMakeFiles/hw0_sol_viz.dir/build
+.PHONY : hw0_sol_viz/fast
+
+#=============================================================================
+# Target rules for targets named hw0_sol
+
+# Build rule for target.
+hw0_sol: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hw0_sol
+.PHONY : hw0_sol
+
+# fast build rule for target.
+hw0_sol/fast:
+	$(MAKE) -f hw0_solution/CMakeFiles/hw0_sol.dir/build.make hw0_solution/CMakeFiles/hw0_sol.dir/build
+.PHONY : hw0_sol/fast
+
+#=============================================================================
 # Target rules for targets named hw1
 
 # Build rule for target.
@@ -226,6 +252,32 @@ simviz_hw1_slow: cmake_check_build_system
 simviz_hw1_slow/fast:
 	$(MAKE) -f hw1/CMakeFiles/simviz_hw1_slow.dir/build.make hw1/CMakeFiles/simviz_hw1_slow.dir/build
 .PHONY : simviz_hw1_slow/fast
+
+#=============================================================================
+# Target rules for targets named simviz_hw1_sol
+
+# Build rule for target.
+simviz_hw1_sol: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 simviz_hw1_sol
+.PHONY : simviz_hw1_sol
+
+# fast build rule for target.
+simviz_hw1_sol/fast:
+	$(MAKE) -f hw1_solution/CMakeFiles/simviz_hw1_sol.dir/build.make hw1_solution/CMakeFiles/simviz_hw1_sol.dir/build
+.PHONY : simviz_hw1_sol/fast
+
+#=============================================================================
+# Target rules for targets named hw1_sol
+
+# Build rule for target.
+hw1_sol: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hw1_sol
+.PHONY : hw1_sol
+
+# fast build rule for target.
+hw1_sol/fast:
+	$(MAKE) -f hw1_solution/CMakeFiles/hw1_sol.dir/build.make hw1_solution/CMakeFiles/hw1_sol.dir/build
+.PHONY : hw1_sol/fast
 
 #=============================================================================
 # Target rules for targets named hw2
@@ -266,6 +318,45 @@ simviz_hw2_slow/fast:
 	$(MAKE) -f hw2/CMakeFiles/simviz_hw2_slow.dir/build.make hw2/CMakeFiles/simviz_hw2_slow.dir/build
 .PHONY : simviz_hw2_slow/fast
 
+#=============================================================================
+# Target rules for targets named hw3
+
+# Build rule for target.
+hw3: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hw3
+.PHONY : hw3
+
+# fast build rule for target.
+hw3/fast:
+	$(MAKE) -f hw3/CMakeFiles/hw3.dir/build.make hw3/CMakeFiles/hw3.dir/build
+.PHONY : hw3/fast
+
+#=============================================================================
+# Target rules for targets named simviz_hw3
+
+# Build rule for target.
+simviz_hw3: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 simviz_hw3
+.PHONY : simviz_hw3
+
+# fast build rule for target.
+simviz_hw3/fast:
+	$(MAKE) -f hw3/CMakeFiles/simviz_hw3.dir/build.make hw3/CMakeFiles/simviz_hw3.dir/build
+.PHONY : simviz_hw3/fast
+
+#=============================================================================
+# Target rules for targets named simviz_hw3_slow
+
+# Build rule for target.
+simviz_hw3_slow: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 simviz_hw3_slow
+.PHONY : simviz_hw3_slow
+
+# fast build rule for target.
+simviz_hw3_slow/fast:
+	$(MAKE) -f hw3/CMakeFiles/simviz_hw3_slow.dir/build.make hw3/CMakeFiles/simviz_hw3_slow.dir/build
+.PHONY : simviz_hw3_slow/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -280,12 +371,19 @@ help:
 	@echo "... controller"
 	@echo "... hw0_viz"
 	@echo "... hw0"
+	@echo "... hw0_sol_viz"
+	@echo "... hw0_sol"
 	@echo "... hw1"
 	@echo "... simviz_hw1"
 	@echo "... simviz_hw1_slow"
+	@echo "... simviz_hw1_sol"
+	@echo "... hw1_sol"
 	@echo "... hw2"
 	@echo "... simviz_hw2"
 	@echo "... simviz_hw2_slow"
+	@echo "... hw3"
+	@echo "... simviz_hw3"
+	@echo "... simviz_hw3_slow"
 .PHONY : help
 
 

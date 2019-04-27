@@ -36,8 +36,11 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/varun/sai2/apps/cs225a/build/lecture2-demo/cmake_install.cmake")
   include("/home/varun/sai2/apps/cs225a/build/hw0/cmake_install.cmake")
+  include("/home/varun/sai2/apps/cs225a/build/hw0_solution/cmake_install.cmake")
   include("/home/varun/sai2/apps/cs225a/build/hw1/cmake_install.cmake")
+  include("/home/varun/sai2/apps/cs225a/build/hw1_solution/cmake_install.cmake")
   include("/home/varun/sai2/apps/cs225a/build/hw2/cmake_install.cmake")
+  include("/home/varun/sai2/apps/cs225a/build/hw3/cmake_install.cmake")
 
 endif()
 
