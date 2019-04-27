@@ -26,7 +26,7 @@ l = []
 
 dt = 0.001	#loop frequency (time per loop)
 
-with open('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw3/data2g.csv','r') as csvfile:
+with open('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw3/data4b.csv','r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
     for row in plots:
         a.append(float(row[0]))
@@ -39,13 +39,13 @@ with open('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw3/data2g.cs
 
         g.append(float(row[6]))
         h.append(float(row[7]))
-
         i.append(float(row[8]))
+
         j.append(float(row[9]))
+        k.append(-1*float(row[9]))
 
 
-        k.append(float(row[10]))
-        l.append(float(row[11]))
+
      
 
 
@@ -72,24 +72,23 @@ plt.grid()
 
 plt.subplot(2,1,2)
 
-plt.plot(t,g, 'g-', label='Joint 4')
-plt.plot(t,h, 'y-',label='Joint 6')
+plt.plot(t,g, label='$\dot x_x$')
+plt.plot(t,h,label='$\dot x_y$')
+plt.plot(t,i, label='$\dot x_z$')
 
-plt.plot(t,i,'g--', label='Joint 4 Upper')
-plt.plot(t,j,'g--', label='Joint 4 Lower')
+plt.plot(t,j,'r', label='$ V_{max}$')
+plt.plot(t,k,'r', label='$ -V_{max}$')
 
-plt.plot(t,k, 'y--',label='Joint 6 Upper')
-plt.plot(t,l,'y--', label='Joint 6 Lower')
 
 
 
 plt.xlabel('Time [s]')
-plt.ylabel('Joint Values [rad]')
+plt.ylabel('Velocity [m/s]')
 plt.legend()
 plt.grid()
 
 
-plt.savefig('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw3/plot2g.png')
+plt.savefig('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw3/plot4b.png')
 
 
 

@@ -36,6 +36,8 @@ const std::string JOINT_VELOCITIES_KEY = "sai2::cs225a::panda_robot::sensors::dq
 const std::string JOINT_TORQUES_COMMANDED_KEY = "sai2::cs225a::panda_robot::actuators::fgc";
 const string CONTROLLER_RUNING_KEY = "sai2::cs225a::controller_running";
 
+double sat(double x);
+
 unsigned long long controller_counter = 0;
 
 int main() {
@@ -62,15 +64,24 @@ int main() {
 	VectorXd command_torques = VectorXd::Zero(dof);
 
 	// model quantities for operational space control
+	MatrixXd J0 = MatrixXd::Zero(6,dof);
+	MatrixXd Lambda0 =MatrixXd::Zero(6,6);
 	MatrixXd Jv = MatrixXd::Zero(3,dof);
 	MatrixXd Lambda = MatrixXd::Zero(3,3);
 	MatrixXd J_bar = MatrixXd::Zero(dof,3);
 	MatrixXd N = MatrixXd::Zero(dof,dof);
+	MatrixXd N0 = MatrixXd::Zero(dof,dof);
+	Matrix3d R;
+	Vector3d omega;
 
 	robot->Jv(Jv, link_name, pos_in_link);
 	robot->taskInertiaMatrix(Lambda, Jv);
 	robot->dynConsistentInverseJacobian(J_bar, Jv);
 	robot->nullspaceMatrix(N, Jv);
+	robot->J_0(J0,link_name,pos_in_link);
+	robot->taskInertiaMatrix(Lambda0, J0);
+	robot->angularVelocity(omega, link_name);
+	robot->nullspaceMatrix(N0, J0);
 
 	Vector3d x;//quantity to store current task space position
 	Vector3d xdot;//quantiy to store current task space velocity
@@ -84,7 +95,7 @@ int main() {
 
 	//open file to store csv
 	std::ofstream traj_file;
-	traj_file.open("/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw3/data2g.csv");
+	traj_file.open("/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw3/data4b.csv");
 
 
 	// create a timer
@@ -108,7 +119,7 @@ int main() {
 		// **********************
 		// WRITE YOUR CODE AFTER
 		// **********************
-		int controller_number = QUESTION_2;  
+		int controller_number = QUESTION_4;  
 
 		robot->gravityVector(g); //update gravity vector
 		robot->coriolisForce(b); // update coriolis/cfugal vector
@@ -118,14 +129,24 @@ int main() {
 		robot->nullspaceMatrix(N, Jv);
 		robot->position(x,link_name,pos_in_link); //position of end effector
 		robot->linearVelocity(xdot,link_name,pos_in_link); //velocity of end effector
+		robot->rotation(R,link_name);	//get the rotation matrix
+		robot->J_0(J0,link_name,pos_in_link);
+		robot->taskInertiaMatrix(Lambda0, J0);
+		robot->angularVelocity(omega, link_name);
+		robot->nullspaceMatrix(N0, J0);
 		auto q = robot->_q;
 		auto qdot = robot->_dq;
+		auto M = robot->_M;
 
 		//define trajectory vector
 		VectorXd x_desired_traj(3);
 
 		//
 		VectorXd x_desired(3);
+
+		VectorXd dPhi(3);
+
+		double Vmax = 0.1;
 
 		//joint limits 
 		VectorXd q_upper(7); VectorXd q_lower(7);
@@ -190,23 +211,67 @@ int main() {
 		// ---------------------------  question 3 ---------------------------------------
 		if(controller_number == QUESTION_3)
 		{
+			Matrix3d R_desired;
+			R_desired << cos(Pi/3.0), 0, sin(Pi/3.0), 0,1,0,-sin(Pi/3.0),0,cos(Pi/3.0);
+			x_desired << 0.6,0.3,0.5;
 
-			command_torques.setZero();
+			for(int i=0;i<dPhi.size();i++)
+			{	
+				auto v = R.col(i);
+				auto w = R_desired.col(i);
+				dPhi = dPhi - 0.5*(v.cross(w));
+				//cout << dPhi.transpose() << endl;
+			}
+				//100		//20		//50		//14
+			double kp=100; double kv=20; double kpj = 50; double kvj = 14;	//set the gains
+
+			VectorXd oriError(3);
+			oriError = kp*(-dPhi) - kv*omega;
+			VectorXd posError(3); 
+			posError =  kp*(x_desired-x) - kv*xdot;
+
+			VectorXd totalError(6);
+			totalError << posError(0),posError(1),posError(2), oriError(0),oriError(1),oriError(2);
+
+			command_torques = J0.transpose()*( Lambda0*(totalError)  ) 
+				+N0.transpose()*(  -kvj*qdot) 
+				+g;
+
+			//command_torques.setZero();
 		}
 
 		// ---------------------------  question 4 ---------------------------------------
 		if(controller_number == QUESTION_4)
-		{
+		{	
 
-			command_torques.setZero();
+			double kp=200; double kv=28; double kpj = 50; double kvj = 14;	//set the gains
+		
+
+			//desired position
+			x_desired << 0.6, 0.3, 0.4;
+
+			//xdd
+			VectorXd xdot_desired(3);
+			xdot_desired = (kp/kv)*(x_desired-x);
+
+			double nu = sat((Vmax/xdot_desired.norm()));
+			cout<< nu << endl;
+
+			//joint limits mid:
+			VectorXd qmid(7);
+			qmid.setZero();	//middle of the joint limits is all zeros
+
+			command_torques = Jv.transpose()*( Lambda*(-0*kp*(x-x_desired) - kv*(xdot-nu*xdot_desired)  )  )   
+						+N.transpose()*M*( -kpj*(q-qmid) -kvj*qdot )
+						+g; 
+
 		}
 
 		//store the trajectory in the csv file (order matters)
 		traj_file << x(0) << "," << x(1) << "," << x(2) << "," <<
 		x_desired(0) << "," << x_desired(1) << "," << x_desired(2) << "," <<
-		q(3) << "," << q(5) << "," <<
-		q_upper(3) << "," << q_lower(3) << "," << 
-		q_upper(5) << "," << q_lower(5) <<  endl;
+		xdot(0) << "," << xdot(1) << "," << xdot(2) << "," << Vmax << endl;
+ 		
 
 		// **********************
 		// WRITE YOUR CODE BEFORE
@@ -233,4 +298,12 @@ int main() {
 
 
 	return 0;
+}
+
+
+
+double sat(double x)
+{	
+	if(abs(x)<1.0) return x;
+	else return (x/abs(x));
 }
