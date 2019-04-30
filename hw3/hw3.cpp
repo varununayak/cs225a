@@ -95,7 +95,7 @@ int main() {
 
 	//open file to store csv
 	std::ofstream traj_file;
-	traj_file.open("/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw3/data4b.csv");
+	traj_file.open("/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw3/data3a.csv");
 
 
 	// create a timer
@@ -119,7 +119,7 @@ int main() {
 		// **********************
 		// WRITE YOUR CODE AFTER
 		// **********************
-		int controller_number = QUESTION_4;  
+		int controller_number = QUESTION_3;  
 
 		robot->gravityVector(g); //update gravity vector
 		robot->coriolisForce(b); // update coriolis/cfugal vector
@@ -170,7 +170,7 @@ int main() {
 			
 			x_desired_traj(0) = x_desired_traj_init(0) + 0.1*sin(Pi*controller_counter*dt);
 			x_desired_traj(1) = x_desired_traj_init(1) + 0.1*cos(Pi*controller_counter*dt);
-			x_desired_traj(2) = x_desired_traj_init(0) + 0;
+			x_desired_traj(2) = x_desired_traj_init(2) + 0;
 
 			VectorXd xdot_traj(3);
 			xdot_traj(0) = 0.1*Pi*cos(Pi*controller_counter*dt);
@@ -180,6 +180,7 @@ int main() {
 			VectorXd xddot_traj(3);
 			xddot_traj(0) = 0.1*Pi*Pi*(-sin(Pi*controller_counter*dt));
 			xddot_traj(1) = 0.1*Pi*Pi*(-cos(Pi*controller_counter*dt));
+			xddot_traj(2) = 0;
 
 
 			//compute the control torques using the control law:
@@ -270,7 +271,7 @@ int main() {
 		//store the trajectory in the csv file (order matters)
 		traj_file << x(0) << "," << x(1) << "," << x(2) << "," <<
 		x_desired(0) << "," << x_desired(1) << "," << x_desired(2) << "," <<
-		xdot(0) << "," << xdot(1) << "," << xdot(2) << "," << Vmax << endl;
+		dPhi(0) << "," << dPhi(1) << "," << dPhi(2)  << endl;
  		
 
 		// **********************

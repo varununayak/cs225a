@@ -26,7 +26,7 @@ l = []
 
 dt = 0.001	#loop frequency (time per loop)
 
-with open('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw3/data4b.csv','r') as csvfile:
+with open('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw3/data3a.csv','r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
     for row in plots:
         a.append(float(row[0]))
@@ -36,14 +36,14 @@ with open('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw3/data4b.cs
        	d.append(float(row[3]))
        	e.append(float(row[4]))
        	f.append(float(row[5]))
-
+        
         g.append(float(row[6]))
         h.append(float(row[7]))
         i.append(float(row[8]))
-
+        '''
         j.append(float(row[9]))
         k.append(-1*float(row[9]))
-
+        '''
 
 
      
@@ -69,27 +69,25 @@ plt.title('Task Space Trajectory Tracking')
 plt.legend()
 plt.grid()
 
-
 plt.subplot(2,1,2)
 
-plt.plot(t,g, label='$\dot x_x$')
-plt.plot(t,h,label='$\dot x_y$')
-plt.plot(t,i, label='$\dot x_z$')
+plt.plot(t,g, label='$d\phi_x$')
+plt.plot(t,h,label='$d\phi_y$')
+plt.plot(t,i, label='$d\phi_z$')
 
-plt.plot(t,j,'r', label='$ V_{max}$')
-plt.plot(t,k,'r', label='$ -V_{max}$')
+#plt.plot(t,j,'r', label='$ V_{max}$')
+#plt.plot(t,k,'r', label='$ -V_{max}$')
 
 
 
 
 plt.xlabel('Time [s]')
-plt.ylabel('Velocity [m/s]')
+plt.ylabel('Angle Error [rad]')
 plt.legend()
 plt.grid()
 
 
-plt.savefig('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw3/plot4b.png')
-
+plt.savefig('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw3/plot3a_v2.png')
 
 
 
