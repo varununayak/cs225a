@@ -1,5 +1,3 @@
-
-
 import matplotlib.pyplot as plt
 import csv
 import numpy as np
@@ -44,7 +42,7 @@ with open('/media/varun/Work/Academics/_Spring 2019/CS 225A/cs225a_hw3/data3a.cs
         j.append(float(row[9]))
         k.append(-1*float(row[9]))
         '''
-
+        
 
      
 
